@@ -19,7 +19,15 @@ A simple demonstration of deploying an NGINX web server on a local Kubernetes cl
 │   └── service.yaml            # Kubernetes service manifest
 ├── Dockerfile                  # Docker image configuration
 ├── deploy.sh                   # Deployment script
-├── cleanup.sh                  # Cleanup script
+├── cleanup
+
+https://github.com/user-attachmen
+
+https://github.com/user-attachments/assets/1aff8b3d-622e-4654-9a54-b5dab3568ac4
+
+ts/assets/1b13ff95-a065-49a5-bc6d-759293e0dc39
+
+p.sh                  # Cleanup script
 └── README.md                   # This file
 ```
 
