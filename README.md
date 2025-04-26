@@ -78,10 +78,4 @@ kubectl port-forward service/hello-world-nginx 8081:80
 
 6. Access argo at https://localhost:8083/settings/repos?addRepo=false
 
-## Video Recording
 
-When recording a video demonstration, consider showing:
-1. The project structure
-2. Building and deploying the application
-3. Accessing the web page
-4. Cleanup process 
