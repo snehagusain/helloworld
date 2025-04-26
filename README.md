@@ -38,7 +38,7 @@ This will:
 - Deploy the application to Kubernetes
 - Set up port forwarding
 
-2. Access the application at http://localhost:8081
+2. Access the application at http://localhost:9090
 
 3. When done, clean up:
 
@@ -76,7 +76,7 @@ kubectl apply -f k8s/
 kubectl port-forward service/hello-world-nginx 8081:80
 ```
 
-6. Access at http://localhost:8081
+6. Access argo at https://localhost:8083/settings/repos?addRepo=false
 
 ## Video Recording
 
