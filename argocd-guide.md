@@ -38,7 +38,7 @@ This script will:
 Keep this terminal window open to maintain the port forwarding, or use the following command to restart it later:
 
 ```bash
-kubectl port-forward svc/argocd-server -n argocd 8082:443
+kubectl port-forward svc/argocd-server -n argocd 8083:443
 ```
 
 ### Step 2: Push Your Kubernetes Manifests to Git
@@ -81,7 +81,7 @@ This script will:
 
 ### Step 4: Access the Argo CD UI
 
-The Argo CD UI is available at https://localhost:8082
+The Argo CD UI is available at https://localhost:8083
 
 Login credentials:
 - Username: admin

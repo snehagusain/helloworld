@@ -33,8 +33,8 @@ echo "Password also saved to argocd-password.txt"
 
 # Set up port forwarding for Argo CD UI
 echo "Setting up port forwarding for Argo CD UI..."
-echo "Access the Argo CD UI at https://localhost:8082"
+echo "Access the Argo CD UI at https://localhost:8083"
 echo "Username: admin"
 echo "Password: $ARGOCD_PASSWORD (also saved in argocd-password.txt)"
 echo "Press Ctrl+C to stop port forwarding when done."
-kubectl port-forward svc/argocd-server -n argocd 8082:443 
+kubectl port-forward svc/argocd-server -n argocd 8083:443 

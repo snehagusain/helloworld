@@ -3,6 +3,11 @@ set -e
 
 echo "Setting up Argo CD application..."
 
+# Create a temporary directory for Argo CD config
+TEMP_CONFIG_DIR="$(mktemp -d)"
+echo "Using temporary config directory: $TEMP_CONFIG_DIR"
+export ARGOCD_CONFIG="$TEMP_CONFIG_DIR"
+
 # Check if argocd CLI is installed
 if ! command -v argocd &> /dev/null; then
   echo "argocd CLI not found. Installing..."
@@ -28,7 +33,7 @@ if ! command -v argocd &> /dev/null; then
 fi
 
 # Variables
-ARGOCD_SERVER="localhost:8082"
+ARGOCD_SERVER="localhost:8083"
 REPO_URL=""
 APP_NAME="hello-world-nginx"
 NAMESPACE="default"
@@ -52,17 +57,20 @@ if [ -z "$REPO_URL" ]; then
   exit 1
 fi
 
+# Remove /tree/master or /tree/main if included in the URL
+REPO_URL=$(echo "$REPO_URL" | sed -E 's/\/tree\/(master|main)$//')
+
 # Prompt for the path to the Kubernetes manifests in the repository
 read -p "Enter the path to your Kubernetes manifests in the repository (default: k8s): " REPO_PATH
 REPO_PATH=${REPO_PATH:-k8s}
 
-# Login to ArgoCD
+# Login to ArgoCD with environment variable to specify config path
 echo "Logging in to Argo CD..."
-argocd login "$ARGOCD_SERVER" --username admin --password "$ARGOCD_PASSWORD" --insecure
+ARGOCD_HOME="$TEMP_CONFIG_DIR" argocd login "$ARGOCD_SERVER" --username admin --password "$ARGOCD_PASSWORD" --insecure
 
 # Create application
 echo "Creating Argo CD application..."
-argocd app create "$APP_NAME" \
+ARGOCD_HOME="$TEMP_CONFIG_DIR" argocd app create "$APP_NAME" \
   --repo "$REPO_URL" \
   --path "$REPO_PATH" \
   --dest-server https://kubernetes.default.svc \
@@ -72,7 +80,11 @@ argocd app create "$APP_NAME" \
   --self-heal
 
 echo "Syncing application..."
-argocd app sync "$APP_NAME"
+ARGOCD_HOME="$TEMP_CONFIG_DIR" argocd app sync "$APP_NAME"
 
 echo "Application setup complete!"
-echo "You can view your application in the Argo CD UI: https://$ARGOCD_SERVER" 
+echo "You can view your application in the Argo CD UI: https://$ARGOCD_SERVER"
+
+# Clean up temporary directory
+echo "Cleaning up temporary config directory..."
+rm -rf "$TEMP_CONFIG_DIR" 
