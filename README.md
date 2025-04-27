@@ -84,6 +84,8 @@ kubectl apply -f k8s/
 kubectl port-forward service/hello-world-nginx 8081:80
 ```
 
-6. Access argo at https://localhost:8083/settings/repos?addRepo=false
+6. Access argo at https://localhost:8083/login?return_url=https%3A%2F%2Flocalhost%3A8083%2Fapplications
+7. username: admin
+8. password:NtOKtPSn-D6oB2I3
 
 
